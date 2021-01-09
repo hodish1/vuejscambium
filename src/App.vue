@@ -1,16 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <HeaderComponent></HeaderComponent>
+  <ProductsComponent :products="products"></ProductsComponent>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HeaderComponent from "./components/Header";
+import ProductsComponent from "./components/products";
+const axios = require("axios").default;
 
 export default {
   name: "App",
   components: {
-    HelloWorld
-  }
+    HeaderComponent,
+    ProductsComponent,
+  },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  methods: {
+    fetchProducts: async () => {},
+  },
+  async mounted() {
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products");
+      this.products = res ? res.data : [];
+    } catch (err) {
+      console.error("Oops something went wrong");
+    }
+  },
 };
 </script>
 
@@ -21,6 +40,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
