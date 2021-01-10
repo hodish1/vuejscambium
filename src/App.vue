@@ -1,37 +1,9 @@
 <template>
-  <HeaderComponent></HeaderComponent>
-  <ProductsComponent :products="products"></ProductsComponent>
+  <div id="nav">
+    <router-link to="/">Home</router-link> 
+  </div>
+  <router-view />
 </template>
-
-<script>
-import HeaderComponent from "./components/Header";
-import ProductsComponent from "./components/products";
-const axios = require("axios").default;
-
-export default {
-  name: "App",
-  components: {
-    HeaderComponent,
-    ProductsComponent,
-  },
-  data() {
-    return {
-      products: [],
-    };
-  },
-  methods: {
-    fetchProducts: async () => {},
-  },
-  async mounted() {
-    try {
-      const res = await axios.get("https://fakestoreapi.com/products");
-      this.products = res ? res.data : [];
-    } catch (err) {
-      console.error("Oops something went wrong");
-    }
-  },
-};
-</script>
 
 <style>
 #app {
@@ -40,5 +12,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
